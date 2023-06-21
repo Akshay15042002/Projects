@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <style>
+    /* CSS styles for the page */
+  </style>
+</head>
+<body>
+  <h1>Cart</h1>
+  <ul>
+    {% for item in cart %}
+    <li>{{ item.name }} - ${{ item.price }}</li>
+    {% endfor %}
+  </ul>
+  <p>Total Cost: ${{ total_cost }}</p>
+  <a href="shop.html">Back to Products</a>
+</body>
+</html>
