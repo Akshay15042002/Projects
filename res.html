@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Page with OTP Verification</title>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .otp-section {
+      display: none;
+    }
+  </style>
+  <script>
+    function generateOTP() {
+      var digits = '0123456789';
+      var otpLength = 6;
+      var otp = '';
+      for (let i = 1; i <= otpLength; i++) {
+        var index = Math.floor(Math.random() * digits.length);
+        otp += digits[index];
+      }
+      return otp;
+    }
+
+    function showOTPSection() {
+      var otpSection = document.getElementById('otp-section');
+      otpSection.style.display = 'block';
+    }
+
+    function verifyOTP() {
+      var inputOTP = document.getElementById('otp-input').value;
+      var generatedOTP = document.getElementById('generated-otp').textContent;
+      if (inputOTP === generatedOTP) {
+        alert('OTP verification successful!');
+        // Perform further actions like submitting the form
+      } else {
+        alert('Invalid OTP! Please try again.');
+      }
+    }
+
+    function handleRegistrationFormSubmit(event) {
+      event.preventDefault();
+      showOTPSection();
+      var generatedOTP = generateOTP();
+      document.getElementById('generated-otp').textContent = generatedOTP;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registration-form" onsubmit="handleRegistrationFormSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="number" id="phone" name="phone" required>
+      </div>
+      <button type="submit" class="btn">Register</button>
+    </form>
+    <div id="otp-section" class="otp-section">
+      <hr>
+      <h3>OTP Verification</h3>
+      <p>An OTP has been sent to your phone. </p>
+      <label for="otp">enter the OTP below:</label>
+      <input type="number" id="otp" name="otp" required>
+      <button type="submit" class="btn">submit</button> 
+      <p>Generated OTP: <span id="generated-otp"></span></p>
+      <a href="login.html">Go to login Page</a>
